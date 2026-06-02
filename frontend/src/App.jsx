@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { registerSW } from "virtual:pwa-register";
 
-import AppRouter from "./routes/AppRouter";
+import Home from "./pages/Home";
+import Fixtures from "./pages/Fixtures";
+import Standings from "./pages/Standings";
+import Teams from "./pages/Teams";
+import Settings from "./pages/Settings";
+import BottomNav from "./components/BottomNav";
 
 function App() {
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -30,16 +35,42 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <AppRouter />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/fixtures" element={<Fixtures />} /> 
+          <Route path="/standings" element={<Standings />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+        <BottomNav />
+
       </BrowserRouter>
 
       {updateAvailable && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-zinc-900 text-white p-4 text-center">
-          <p>Nueva versión disponible</p>
-
+        <div
+          style={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            background: "#333",
+            color: "#fff",
+            padding: "1rem",
+            textAlign: "center",
+            zIndex: 9999,
+          }}
+        >
+          🔄 Nueva versión disponible.&nbsp;
           <button
             onClick={handleUpdate}
-            className="mt-2 px-4 py-2 bg-green-600 rounded-lg"
+            style={{
+              cursor: "pointer",
+              background: "#fff",
+              color: "#333",
+              border: "none",
+              padding: "0.5rem 1rem",
+              borderRadius: "4px",
+            }}
           >
             Actualizar
           </button>
