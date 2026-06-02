@@ -2,20 +2,16 @@ import Header from "../components/Header";
 import MatchCard from "../components/MatchCard";
 import { fixtures } from "../data/MockData";
 
-export default function Home() {
+export default function Fixtures() {
   return (
     <div className="p-4">
       <Header
-        title="WC26 Hub"
-        subtitle="Mundial FIFA 2026"
+        title="Fixture"
+        subtitle="Calendario completo"
       />
 
-      <h2 className="mb-4 font-semibold">
-        Próximos partidos
-      </h2>
-
       <div className="space-y-3">
-        {fixtures.slice(0, 3).map((match) => (
+        {fixtures.map((match) => (
           <MatchCard
             key={match.id}
             {...match}

@@ -8,30 +8,26 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
+
   darkMode: "class",
+
   theme: {
     extend: {
       colors: {
-        light: {
-          bg: "#fffde7",        // amarillo pastel claro
-          card: "#ffffff",      // blanco puro
-          text: "#1e1e1e",      // gris oscuro neutro
-          accent: "#ffca28",    // amarillo dorado vibrante
-          secondary: "#3f51b5", // índigo vibrante
-        },
-        dark: {
-          bg: "#1a1a2e",        // azul muy oscuro
-          card: "#16213e",      // azul oscuro
-          text: "#f3f4f6",      // gris claro
-          accent: "#ffeb3b",    // amarillo brillante
-          secondary: "#82b1ff", // azul celeste pastel
-        },
+        bg: "var(--bg)",
+        card: "var(--card)",
+        text: "var(--text)",
+
+        accent: "var(--accent)",
+        secondary: "var(--secondary)",
       },
+
       boxShadow: {
         glass: "0 8px 24px rgba(0,0,0,0.3)",
       },
     },
   },
+
   plugins: [
     nextui({
       layout: {

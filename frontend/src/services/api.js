@@ -4,20 +4,30 @@ const buildUrl = (endpoint) => {
   return `${BASE_URL.replace(/\/+$/, "")}/${endpoint.replace(/^\/+/, "")}`;
 };
 
-export const fetchData = async (endpoint) => {
+export const fetchData = async (
+  endpoint,
+  token = null
+) => {
   const url = buildUrl(endpoint);
-  try {
-    const res = await fetch(url);
 
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`GET ${url} → ${res.status} | Respuesta: ${text}`);
-    }
-    return await res.json();
-  } catch (err) {
-    console.error("Error en fetchData:", err);
-    return null;
+  const headers = {
+    ...(token && {
+      Authorization: `Bearer ${token}`,
+    }),
+  };
+
+  const res = await fetch(url, {
+    headers,
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error(
+      `GET ${url} → ${res.status}`
+    );
   }
+
+  return res.json();
 };
 
 export const postData = async (endpoint, payload, token, extraHeaders = {}) => {

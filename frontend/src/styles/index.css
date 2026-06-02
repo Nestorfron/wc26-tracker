@@ -5,3 +5,22 @@
 body {
   font-family: 'Inter', sans-serif;
 }
+
+
+:root {
+  --bg: #fffde7;
+  --card: #ffffff;
+  --text: #1e1e1e;
+
+  --accent: #ffca28;
+  --secondary: #3f51b5;
+}
+
+.dark {
+  --bg: #1a1a2e;
+  --card: #16213e;
+  --text: #f3f4f6;
+
+  --accent: #ffeb3b;
+  --secondary: #82b1ff;
+}

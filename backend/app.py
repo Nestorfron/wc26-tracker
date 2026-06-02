@@ -7,8 +7,7 @@ from flask_migrate import Migrate # type: ignore
 from extensions import mail # type: ignore
 
 from config import Config
-from api.models import db, User
-
+from api.models import db, User, Team, Match, Standing, Favorite, MatchEvent
 # Importa tus Blueprints
 from api.routes import api
 
@@ -25,8 +24,13 @@ jwt = JWTManager(app)
 migrate = Migrate(app, db)
 
 # Flask-Admin
-admin = Admin(app, name='Panel Admin', template_mode='bootstrap3')
+admin = Admin(app, name='Panel Admin')
 admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Team, db.session))
+admin.add_view(ModelView(Match, db.session))
+admin.add_view(ModelView(Standing, db.session))
+admin.add_view(ModelView(Favorite, db.session)) 
+admin.add_view(ModelView(MatchEvent, db.session))
 
 app.register_blueprint(api, url_prefix='/api')
 

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { registerSW } from "virtual:pwa-register";
 
-import Home from "./pages/Home";
-
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -31,36 +30,16 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
+        <AppRouter />
       </BrowserRouter>
 
       {updateAvailable && (
-        <div
-          style={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            background: "#333",
-            color: "#fff",
-            padding: "1rem",
-            textAlign: "center",
-            zIndex: 9999,
-          }}
-        >
-          🔄 Nueva versión disponible.&nbsp;
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-zinc-900 text-white p-4 text-center">
+          <p>Nueva versión disponible</p>
+
           <button
             onClick={handleUpdate}
-            style={{
-              cursor: "pointer",
-              background: "#fff",
-              color: "#333",
-              border: "none",
-              padding: "0.5rem 1rem",
-              borderRadius: "4px",
-            }}
+            className="mt-2 px-4 py-2 bg-green-600 rounded-lg"
           >
             Actualizar
           </button>
