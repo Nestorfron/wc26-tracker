@@ -24,7 +24,7 @@ export default function Teams() {
   ).sort();
 
   return (
-    <div className="p-4">
+    <div className="p-4 pb-24">
       <Header
         title="Equipos"
         subtitle="Selecciones participantes"

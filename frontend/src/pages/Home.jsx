@@ -4,7 +4,7 @@ import { fixtures } from "../data/MockData";
 
 export default function Home() {
   return (
-    <div className="p-4">
+    <div className="p-4 pb-24">
       <Header
         title="WC26 Hub"
         subtitle="Mundial FIFA 2026"
