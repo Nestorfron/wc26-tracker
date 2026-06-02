@@ -1,18 +1,12 @@
 import ThemeToggle from "./ThemeToggle";
+import Logo from "../assets/logo.png";
 
-export default function Header({
-  title,
-  subtitle,
-}) {
+export default function Header({ title }) {
   return (
     <div className="flex justify-between items-start mb-6">
-      <div>
-        <h1 className="text-3xl font-bold">
-          {title}
-        </h1>
+      <div className="flex m-auto">
+        <img src={Logo} alt="WC26 Tracker" className="w-48 h-auto" />
       </div>
-
-      <ThemeToggle />
     </div>
   );
 }

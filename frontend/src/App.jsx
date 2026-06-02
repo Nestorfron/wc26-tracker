@@ -8,6 +8,7 @@ import Standings from "./pages/Standings";
 import Teams from "./pages/Teams";
 import Settings from "./pages/Settings";
 import BottomNav from "./components/BottomNav";
+import ThemeToggle from "./components/ThemeToggle";
 
 function App() {
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -35,7 +36,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <ThemeToggle />
         <Routes>
+
           <Route path="/" element={<Home />} />
           <Route path="/fixtures" element={<Fixtures />} /> 
           <Route path="/standings" element={<Standings />} />
