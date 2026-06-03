@@ -4,7 +4,7 @@ import { standings } from "../data/MockData";
 
 export default function Standings() {
   return (
-    <div className="p-4">
+    <div className="p-4 pb-24">
       <Header
         title="Posiciones"
         subtitle="Fase de grupos"

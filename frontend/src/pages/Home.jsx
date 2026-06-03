@@ -11,7 +11,7 @@ export default function Home() {
       </h2>
 
       <div className="space-y-3">
-        {fixtures.slice(0, 3).map((match) => (
+        {fixtures.slice(0, 5).map((match) => (
           <MatchCard
             key={match.id}
             {...match}

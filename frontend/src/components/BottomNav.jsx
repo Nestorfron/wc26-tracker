@@ -28,12 +28,7 @@ export default function BottomNav() {
       label: "Equipos",
       icon: Flag,
       path: "/teams",
-    },
-    {
-      label: "Ajustes",
-      icon: Settings,
-      path: "/settings",
-    },
+    }, 
   ];
 
   return (
@@ -53,7 +48,7 @@ export default function BottomNav() {
       backdrop-blur-md
       "
     >
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-4">
         {navItems.map((item) => {
           const Icon = item.icon;
 

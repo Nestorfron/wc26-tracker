@@ -73,9 +73,9 @@ export default function TeamCard({ team }) {
       <div className="flex flex-col items-center">
         <div
           className="
-          w-20
+          w-30
           h-20
-          rounded-full
+          rounded-lg
           overflow-hidden
           border-4
           border-accent/20

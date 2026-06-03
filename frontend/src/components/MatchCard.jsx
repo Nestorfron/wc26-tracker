@@ -47,8 +47,10 @@ export const flags = {
     Uzbekistan: "uz",
     Algeria: "dz",
     "Cabo Verde": "cv",
-    "Congo DR": "cd",
+    "DR Congo": "cd",
   };
+
+
 
 
 export default function MatchCard({
@@ -63,11 +65,14 @@ export default function MatchCard({
   const flag1 = flags[team1];
   const flag2 = flags[team2];
 
+
+  
+
   return (
     <div
       className="
       bg-card
-      rounded-3xl
+      rounded-lg
       p-5
       shadow-glass
       border
@@ -79,7 +84,7 @@ export default function MatchCard({
           <img
             src={`https://flagcdn.io/${flags[team1]}.svg`}
             alt={team1}
-            className="w-12 h-12 rounded-full"
+            className="w-12 h-12 rounded-lg"
           />
 
           <span
@@ -125,7 +130,7 @@ export default function MatchCard({
           <img
             src={`https://flagcdn.io/${flags[team2]}.svg`}
             alt={team2}
-            className="w-12 h-12 rounded-full"
+            className="w-12 h-12 rounded-lg"
           />
 
           <span

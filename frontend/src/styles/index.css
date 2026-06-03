@@ -4,11 +4,13 @@
 
 body {
   font-family: 'Inter', sans-serif;
+  padding: 10px;
+  background-color: var(--bg);
 }
 
 
 :root {
-  --bg: #fffde7;
+  --bg: #95f5a6;
   --card: #ffffff;
   --text: #1e1e1e;
 
