@@ -1481,37 +1481,87 @@ export const stadiums = [
 
 
 export const standings = {
-  A: [
-    {
-      id: 1,
-      name: "Uruguay",
-      points: 6,
-      played: 2,
-      goalDiff: 4,
-    },
-    {
-      id: 2,
-      name: "España",
-      points: 3,
-      played: 2,
-      goalDiff: 1,
-    },
-  ],
-
-  B: [
-    {
-      id: 3,
-      name: "Brasil",
-      points: 6,
-      played: 2,
-      goalDiff: 5,
-    },
-    {
-      id: 4,
-      name: "Argentina",
-      points: 3,
-      played: 2,
-      goalDiff: 1,
-    },
-  ],
-};
+    A: [
+      { id: 1, name: "Mexico", points: 0, played: 0, goalDiff: 0 },
+      { id: 2, name: "South Africa", points: 0, played: 0, goalDiff: 0 },
+      { id: 3, name: "Korea Republic", points: 0, played: 0, goalDiff: 0 },
+      { id: 4, name: "Czechia", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    B: [
+      { id: 5, name: "Canada", points: 0, played: 0, goalDiff: 0 },
+      { id: 6, name: "Bosnia & Herzegovina", points: 0, played: 0, goalDiff: 0 },
+      { id: 7, name: "Qatar", points: 0, played: 0, goalDiff: 0 },
+      { id: 8, name: "Switzerland", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    C: [
+      { id: 9, name: "Brazil", points: 0, played: 0, goalDiff: 0 },
+      { id: 10, name: "Morocco", points: 0, played: 0, goalDiff: 0 },
+      { id: 11, name: "Haiti", points: 0, played: 0, goalDiff: 0 },
+      { id: 12, name: "Scotland", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    D: [
+      { id: 13, name: "United States", points: 0, played: 0, goalDiff: 0 },
+      { id: 14, name: "Paraguay", points: 0, played: 0, goalDiff: 0 },
+      { id: 15, name: "Australia", points: 0, played: 0, goalDiff: 0 },
+      { id: 16, name: "Türkiye", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    E: [
+      { id: 17, name: "Germany", points: 0, played: 0, goalDiff: 0 },
+      { id: 18, name: "Curaçao", points: 0, played: 0, goalDiff: 0 },
+      { id: 19, name: "Cote d'Ivoire", points: 0, played: 0, goalDiff: 0 },
+      { id: 20, name: "Ecuador", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    F: [
+      { id: 21, name: "Netherlands", points: 0, played: 0, goalDiff: 0 },
+      { id: 22, name: "Japan", points: 0, played: 0, goalDiff: 0 },
+      { id: 23, name: "Sweden", points: 0, played: 0, goalDiff: 0 },
+      { id: 24, name: "Tunisia", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    G: [
+      { id: 25, name: "Belgium", points: 0, played: 0, goalDiff: 0 },
+      { id: 26, name: "Egypt", points: 0, played: 0, goalDiff: 0 },
+      { id: 27, name: "IR Iran", points: 0, played: 0, goalDiff: 0 },
+      { id: 28, name: "New Zealand", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    H: [
+      { id: 29, name: "Spain", points: 0, played: 0, goalDiff: 0 },
+      { id: 30, name: "Cabo Verde", points: 0, played: 0, goalDiff: 0 },
+      { id: 31, name: "Saudi Arabia", points: 0, played: 0, goalDiff: 0 },
+      { id: 32, name: "Uruguay", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    I: [
+      { id: 33, name: "France", points: 0, played: 0, goalDiff: 0 },
+      { id: 34, name: "Senegal", points: 0, played: 0, goalDiff: 0 },
+      { id: 35, name: "Iraq", points: 0, played: 0, goalDiff: 0 },
+      { id: 36, name: "Norway", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    J: [
+      { id: 37, name: "Argentina", points: 0, played: 0, goalDiff: 0 },
+      { id: 38, name: "Algeria", points: 0, played: 0, goalDiff: 0 },
+      { id: 39, name: "Austria", points: 0, played: 0, goalDiff: 0 },
+      { id: 40, name: "Jordan", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    K: [
+      { id: 41, name: "Portugal", points: 0, played: 0, goalDiff: 0 },
+      { id: 42, name: "Congo DR", points: 0, played: 0, goalDiff: 0 },
+      { id: 43, name: "Uzbekistan", points: 0, played: 0, goalDiff: 0 },
+      { id: 44, name: "Colombia", points: 0, played: 0, goalDiff: 0 },
+    ],
+  
+    L: [
+      { id: 45, name: "England", points: 0, played: 0, goalDiff: 0 },
+      { id: 46, name: "Croatia", points: 0, played: 0, goalDiff: 0 },
+      { id: 47, name: "Ghana", points: 0, played: 0, goalDiff: 0 },
+      { id: 48, name: "Panama", points: 0, played: 0, goalDiff: 0 },
+    ],
+  };
