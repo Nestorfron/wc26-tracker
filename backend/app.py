@@ -1,48 +1,90 @@
-from flask import Flask # type: ignore
-from flask_cors import CORS # type: ignore
-from flask_jwt_extended import JWTManager # type: ignore
-from flask_admin import Admin # type: ignore
-from flask_admin.contrib.sqla import ModelView # type: ignore
-from flask_migrate import Migrate # type: ignore
-from extensions import mail # type: ignore
+from flask import Flask, jsonify
+from flask_cors import CORS
+from dotenv import load_dotenv
+import os
 
-from config import Config
-from api.models import db, User, Team, Match, Standing, Favorite, MatchEvent
-# Importa tus Blueprints
-from api.routes import api
+# Blueprints
+from api.routes.fixtures import fixtures_bp
+from api.routes.live import live_bp
+from api.routes.standings import standings_bp
+from api.routes.teams import teams_bp
 
-# Crear la app
+# Cargar variables de entorno
+load_dotenv()
+
 app = Flask(__name__)
-app.config.from_object(Config)
-mail.init_app(app)
 
-# Extensiones
-CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
+# Configuración
+app.config["JSON_SORT_KEYS"] = False
 
-db.init_app(app)
-jwt = JWTManager(app)
-migrate = Migrate(app, db)
+# CORS
+CORS(
+    app,
+    resources={
+        r"/api/*": {
+            "origins": "*"
+        }
+    }
+)
 
-# Flask-Admin
-admin = Admin(app, name='Panel Admin')
-admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Team, db.session))
-admin.add_view(ModelView(Match, db.session))
-admin.add_view(ModelView(Standing, db.session))
-admin.add_view(ModelView(Favorite, db.session)) 
-admin.add_view(ModelView(MatchEvent, db.session))
+# -------------------------
+# Health Check
+# -------------------------
 
-app.register_blueprint(api, url_prefix='/api')
+@app.route("/")
+def home():
+    return jsonify({
+        "name": "WC26 Tracker API",
+        "status": "online",
+        "version": "1.0.0"
+    })
 
 
-# Rutas básicas para test
-@app.route('/ping')
-def ping():
-    return {'status': 'ok'}, 200
+@app.route("/health")
+def health():
+    return jsonify({
+        "success": True,
+        "message": "API funcionando correctamente"
+    })
 
-# Crear tablas si no existen (desarrollo)
-with app.app_context():
-    db.create_all()
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# -------------------------
+# Registrar Blueprints
+# -------------------------
+
+app.register_blueprint(fixtures_bp, url_prefix="/api")
+app.register_blueprint(live_bp, url_prefix="/api")
+app.register_blueprint(standings_bp, url_prefix="/api")
+app.register_blueprint(teams_bp, url_prefix="/api")
+
+
+# -------------------------
+# Manejo de errores
+# -------------------------
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "message": "Endpoint no encontrado"
+    }), 404
+
+
+@app.errorhandler(500)
+def server_error(error):
+    return jsonify({
+        "success": False,
+        "message": "Error interno del servidor"
+    }), 500
+
+
+# -------------------------
+# Main
+# -------------------------
+
+if __name__ == "__main__":
+    app.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 5000)),
+        debug=True
+    )

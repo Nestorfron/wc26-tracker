@@ -1,7 +1,7 @@
 # Backend
 backend/venv/
 backend/__pycache__/
-backend/.env
+backend/api/.env
 
 # Frontend
 frontend/node_modules/

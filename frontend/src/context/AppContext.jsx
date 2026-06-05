@@ -5,49 +5,54 @@ import React, {
   useContext,
 } from "react";
 
-import { fetchData } from "../services/api";
+import {
+  getMatches,
+  getLiveMatches,
+  getTeams,
+  getStandings,
+} from "../services/football";
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [fixtures, setFixtures] = useState([]);
   const [matches, setMatches] = useState([]);
   const [liveMatches, setLiveMatches] = useState([]);
   const [teams, setTeams] = useState([]);
   const [standings, setStandings] = useState([]);
-  const [players, setPlayers] = useState([]);
-  
-  const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const loadInitialData = async () => {
     try {
       setLoading(true);
+      setError(null);
 
       const [
-        matchesData,
-        teamsData,
-        standingsData,
-        playersData,
-        fixturesData,
-        liveMatchesData,
+        matchesResponse,
+        liveResponse,
+        teamsResponse,
+        standingsResponse,
       ] = await Promise.all([
-        fetchData("/matches"),
-        fetchData("/teams"),
-        fetchData("/standings"),
-        fetchData("/players"),
-        fetchData("/fixtures"),
-        fetchData("/live-matches"),
+        getMatches(),
+        getLiveMatches(),
+        getTeams(1, 2026),
+        getStandings(1, 2026),
       ]);
 
-      setMatches(matchesData || []);
-      setTeams(teamsData || []);
-      setStandings(standingsData || []);
-      setPlayers(playersData || []);
-      setFixtures(fixturesData || []);
-      setLiveMatches(liveMatchesData || []);
+      console.log(teamsResponse);
+
+
+      setMatches(matchesResponse?.response || []);
+      setLiveMatches(liveResponse?.response || []);
+      setTeams(teamsResponse?.response || []);
+
+      setStandings(
+        standingsResponse?.response?.[0]?.league?.standings?.[0] || []
+      );
     } catch (err) {
       console.error(err);
-      setError(err.message);
+      setError(err.message || "Error cargando datos");
     } finally {
       setLoading(false);
     }
@@ -61,18 +66,14 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         matches,
+        liveMatches,
         teams,
         standings,
-        players,
-        fixtures,
-        liveMatches,
 
         setMatches,
+        setLiveMatches,
         setTeams,
         setStandings,
-        setPlayers,
-        setFixtures,
-        setLiveMatches,
 
         loading,
         error,
@@ -85,5 +86,4 @@ export const AppProvider = ({ children }) => {
   );
 };
 
-export const useAppContext = () =>
-  useContext(AppContext);
+export const useAppContext = () => useContext(AppContext);
