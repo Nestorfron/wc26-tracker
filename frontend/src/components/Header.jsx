@@ -3,7 +3,7 @@ import Logo from "../assets/logo.png";
 
 export default function Header() {
   return (
-    <header className="sticky top-3 z-50 px-4 mb-6">
+    <header className="sticky top-3 z-50  mb-6">
       <div
         className="
           flex items-center justify-between

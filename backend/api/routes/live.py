@@ -14,16 +14,22 @@ def live():
     cached = get_cache("live")
 
     if cached:
+        print("CACHE LIVE")
         return jsonify(cached)
+
 
     data = get_live_matches()
 
+    print("DATA LIVE")
+
+    response_data = {
+        "live": data["response"]
+    }
+
     set_cache(
         "live",
-        data,
+        response_data,
         minutes=1
     )
 
-    return jsonify({
-        "live": data["response"]
-    })
+    return jsonify(response_data)

@@ -18,6 +18,7 @@ export default function Loading() {
             backdrop-blur-xl
             p-4
             animate-pulse
+            m-4
           "
         >
           <div className="flex justify-between items-center">

@@ -1,8 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
-from flask_limiter import Limiter # type: ignore
-from flask_limiter.util import get_remote_address # type: ignore
+from flask_limiter import Limiter  # type: ignore
+from flask_limiter.util import get_remote_address  # type: ignore
 import os
 
 from api.routes.fixtures import fixtures_bp
@@ -16,12 +16,51 @@ app = Flask(__name__)
 
 app.config["JSON_SORT_KEYS"] = False
 
+# -------------------------
+# API Key
+# -------------------------
+
+API_KEY = os.getenv("API_KEY")
+
+print(f"API_KEY cargada: {'Sí' if API_KEY else 'No'}")
+
+
+@app.before_request
+def verify_api_key():
+
+    # Permitir preflight CORS
+    if request.method == "OPTIONS":
+        return
+
+    # Endpoints públicos
+    public_routes = ["/", "/health"]
+
+    if request.path in public_routes:
+        return
+
+    key = request.headers.get("X-API-KEY")
+
+    if key != API_KEY:
+        return jsonify({
+            "success": False,
+            "message": "Invalid API key"
+        }), 401
+
+
+# -------------------------
+# Rate Limiter
+# -------------------------
 
 limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["20 per minute"]
 )
+
 limiter.init_app(app)
+
+# -------------------------
+# CORS
+# -------------------------
 
 CORS(
     app,
@@ -63,7 +102,6 @@ app.register_blueprint(fixtures_bp, url_prefix="/api")
 app.register_blueprint(live_bp, url_prefix="/api")
 app.register_blueprint(standings_bp, url_prefix="/api")
 app.register_blueprint(teams_bp, url_prefix="/api")
-
 
 # -------------------------
 # Manejo de errores

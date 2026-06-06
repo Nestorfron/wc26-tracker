@@ -14,9 +14,12 @@ def standings():
     cached = get_cache("standings")
 
     if cached:
+        print("CACHE STANDINGS")
         return jsonify(cached)
 
     data = get_standings()
+
+    print("DATA STANDINGS")
 
     set_cache(
         "standings",

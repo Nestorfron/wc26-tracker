@@ -13,9 +13,12 @@ def fixtures():
     cached = get_cache("fixtures")
 
     if cached:
+        print("CACHE MATCHES")
         return jsonify(cached)
 
     data = get_fixtures()
+
+    print("DATA MATCHES")
 
     set_cache(
         "fixtures",

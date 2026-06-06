@@ -14,9 +14,12 @@ def teams():
     cached = get_cache("teams")
 
     if cached:
+        print("CACHE TEAMS")
         return jsonify(cached)
 
     data = get_teams()
+
+    print("DATA TEAMS")
 
     set_cache(
         "teams",
