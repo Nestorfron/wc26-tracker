@@ -24,4 +24,6 @@ def teams():
         minutes=1440
     )
 
-    return jsonify(data)
+    return jsonify({
+        "teams": data["response"]
+    })

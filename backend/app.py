@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
+from flask_limiter import Limiter # type: ignore
+from flask_limiter.util import get_remote_address # type: ignore
 import os
 
 # Blueprints
@@ -9,20 +11,28 @@ from api.routes.live import live_bp
 from api.routes.standings import standings_bp
 from api.routes.teams import teams_bp
 
-# Cargar variables de entorno
 load_dotenv()
 
 app = Flask(__name__)
 
-# Configuración
 app.config["JSON_SORT_KEYS"] = False
+
+# Rate Limiter
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=["20 per minute"]
+)
+limiter.init_app(app)
 
 # CORS
 CORS(
     app,
     resources={
         r"/api/*": {
-            "origins": "*"
+            "origins": [
+                "https://wc26tracker.vercel.app",
+                "http://localhost:5173"
+            ]
         }
     }
 )

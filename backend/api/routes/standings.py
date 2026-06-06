@@ -24,4 +24,6 @@ def standings():
         minutes=30
     )
 
-    return jsonify(data)
+    return jsonify({
+        "standings": data["response"]
+    })

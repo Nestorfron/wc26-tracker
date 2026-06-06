@@ -24,4 +24,6 @@ def live():
         minutes=1
     )
 
-    return jsonify(data)
+    return jsonify({
+        "live": data["response"]
+    })

@@ -23,4 +23,6 @@ def fixtures():
         minutes=30
     )
 
-    return jsonify(data)
+    return jsonify({
+        "matches": data["response"]
+    })

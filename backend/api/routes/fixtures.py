@@ -24,4 +24,6 @@ def fixtures():
         minutes=60
     )
 
-    return jsonify(data)
+    return jsonify({
+        "fixtures": data["response"]
+    })
