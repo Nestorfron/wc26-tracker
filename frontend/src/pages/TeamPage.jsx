@@ -2,17 +2,21 @@ import { useParams } from "react-router-dom";
 import { useMemo } from "react";
 import { useAppContext } from "../context/AppContext";
 import Header from "../components/Header";
+import Loading from "../components/Loading";
 
 import MatchCard from "../components/MatchCard";
 
 export default function TeamPage() {
   const { id } = useParams();
 
-  const { teams, standings, matches } = useAppContext();
+  const { teams, standings, matches, loading } = useAppContext();
 
   const team = useMemo(() => {
     return teams.find((t) => t.team.id === Number(id));
   }, [teams, id]);
+
+
+
 
   const teamStanding = useMemo(() => {
     for (const group of standings) {
@@ -58,9 +62,11 @@ export default function TeamPage() {
 
   if (!team) {
     return (
-      <div className="container mx-auto px-4 py-8">Selección no encontrada</div>
+      <Loading />
     );
   }
+
+  if (loading) return <Loading />;
 
   return (
     <div className="container mx-auto px-4 py-6 space-y-8">
