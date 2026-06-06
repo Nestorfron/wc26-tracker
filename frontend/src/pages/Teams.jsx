@@ -1,27 +1,10 @@
 import Header from "../components/Header";
 import TeamCard from "../components/TeamCard";
-import { teams } from "../data/MockData";
+import { useAppContext } from "../context/AppContext";
 
 export default function Teams() {
-  const groupedTeams = teams.reduce(
-    (acc, team) => {
-      const group =
-        team.group_name || "Sin grupo";
+    const { teams } = useAppContext();
 
-      if (!acc[group]) {
-        acc[group] = [];
-      }
-
-      acc[group].push(team);
-
-      return acc;
-    },
-    {}
-  );
-
-  const sortedGroups = Object.keys(
-    groupedTeams
-  ).sort();
 
   return (
     <div className="p-4 pb-24">
@@ -31,18 +14,7 @@ export default function Teams() {
       />
 
       <div className="space-y-6">
-        {sortedGroups.map((group) => (
-          <div key={group}>
-            <h2
-              className="
-              text-lg
-              font-bold
-              mb-3
-              text-text
-              "
-            >
-              Grupo {group}
-            </h2>
+        
 
             <div
               className="
@@ -51,18 +23,17 @@ export default function Teams() {
               gap-3
               "
             >
-              {groupedTeams[group].map(
-                (team) => (
+              {teams.map(
+                (team, index) => (
                   <TeamCard
-                    key={team.id}
-                    team={team}
+                    key={index + 1}
+                    team={team.team}
                   />
                 )
               )}
             </div>
           </div>
-        ))}
-      </div>
+
     </div>
   );
 }

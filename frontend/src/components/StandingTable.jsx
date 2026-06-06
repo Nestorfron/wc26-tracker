@@ -1,58 +1,10 @@
-export const flags = {
-    Argentina: "ar",
-    Australia: "au",
-    Austria: "at",
-    Belgium: "be",
-    "Bosnia & Herzegovina": "ba",
-    Brazil: "br",
-    Canada: "ca",
-    Chile: "cl",
-    "Cote d'Ivoire": "ci",
-    Colombia: "co",
-    Croatia: "hr",
-    Curaçao: "cw",
-    Czechia: "cz",
-    Ecuador: "ec",
-    Egypt: "eg",
-    England: "gb-eng",
-    France: "fr",
-    Germany: "de",
-    Ghana: "gh",
-    "IR Iran": "ir",
-    Iraq: "iq",
-    Japan: "jp",
-    Jordan: "jo",
-    Mexico: "mx",
-    Morocco: "ma",
-    Netherlands: "nl",
-    Norway: "no",
-    "New Zealand": "nz",
-    Panama: "pa",
-    Paraguay: "py",
-    Portugal: "pt",
-    Scotland: "gb-sct",
-    Senegal: "sn",
-    "Saudi Arabia": "sa",
-    "South Africa": "za",
-    "Korea Republic": "kr",
-    Spain: "es",
-    Sweden: "se",
-    Switzerland: "ch",
-    Tunisia: "tn",
-    Türkiye: "tr",
-    Uruguay: "uy",
-    "United States": "us",
-    Qatar: "qa",
-    Haiti: "ht",
-    Uzbekistan: "uz",
-    Algeria: "dz",
-    "Cabo Verde": "cv",
-    "DR Congo": "cd",
-  };
-  
+ 
 
 
 export default function StandingTable({ teams }) {
+
+
+
   return (
     <div
       className="
@@ -91,6 +43,18 @@ export default function StandingTable({ teams }) {
             </th>
 
             <th className="text-center text-xs font-semibold uppercase tracking-wider opacity-70">
+              PG
+            </th>
+
+            <th className="text-center text-xs font-semibold uppercase tracking-wider opacity-70">
+              PP
+            </th>
+
+            <th className="text-center text-xs font-semibold uppercase tracking-wider opacity-70">
+              PE
+            </th>
+
+            <th className="text-center text-xs font-semibold uppercase tracking-wider opacity-70">
               DG
             </th>
           </tr>
@@ -99,7 +63,7 @@ export default function StandingTable({ teams }) {
         <tbody>
           {teams.map((team, index) => (
             <tr
-              key={team.id}
+              key={index + 1}
               className="
                 border-b
                 border-white/5
@@ -130,7 +94,7 @@ export default function StandingTable({ teams }) {
               <td>
                 <div className="flex items-center gap-3">
                   <img
-                    src={`https://flagcdn.io/${flags[team.name]}.svg`}
+                    src={team.team.logo}
                     alt={team.name}
                     className="
                       w-8
@@ -142,7 +106,7 @@ export default function StandingTable({ teams }) {
                   />
 
                   <span className="font-medium">
-                    {team.name}
+                    {team.team.name}
                   </span>
                 </div>
               </td>
@@ -153,21 +117,23 @@ export default function StandingTable({ teams }) {
               </td>
 
               <td className="text-center opacity-80">
-                {team.played}
+                {team.all.played}
               </td>
 
-              <td
-                className={`text-center font-medium ${
-                  team.goalDiff > 0
-                    ? "text-green-500"
-                    : team.goalDiff < 0
-                    ? "text-red-500"
-                    : ""
-                }`}
-              >
-                {team.goalDiff > 0
-                  ? `+${team.goalDiff}`
-                  : team.goalDiff}
+              <td className="text-center opacity-80">
+                {team.all.win}
+              </td>
+
+              <td className="text-center opacity-80">
+                {team.all.draw}
+              </td>
+
+              <td className="text-center opacity-80">
+                {team.all.lose}
+              </td>
+
+              <td className="text-center opacity-80">
+                {team.goalsDiff}
               </td>
             </tr>
           ))}

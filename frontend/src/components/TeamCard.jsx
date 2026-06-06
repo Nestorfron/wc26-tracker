@@ -1,57 +1,8 @@
-export const flags = {
-    Argentina: "ar",
-    Australia: "au",
-    Austria: "at",
-    Belgium: "be",
-    "Bosnia & Herzegovina": "ba",
-    Brazil: "br",
-    Canada: "ca",
-    Chile: "cl",
-    "Cote d'Ivoire": "ci",
-    Colombia: "co",
-    Croatia: "hr",
-    Curaçao: "cw",
-    "Czechia": "cz",
-    Ecuador: "ec",
-    Egypt: "eg",
-    England: "gb-eng",
-    France: "fr",
-    Germany: "de",
-    Ghana: "gh",
-    "IR Iran": "ir",
-    Iraq: "iq",
-    Japan: "jp",
-    Jordan: "jo",
-    Mexico: "mx",
-    Morocco: "ma",
-    Netherlands: "nl",
-    Norway: "no",
-    "New Zealand": "nz",
-    Panama: "pa",
-    Paraguay: "py",
-    Portugal: "pt",
-    Scotland: "gb-sct",
-    Senegal: "sn",
-    "Saudi Arabia": "sa",
-    "South Africa": "za",
-    "Korea Republic": "kr",
-    Spain: "es",
-    Sweden: "se",
-    Switzerland: "ch",
-    Tunisia: "tn",
-    Türkiye: "tr",
-    Uruguay: "uy",
-    "United States": "us",
-    Qatar: "qa",
-    Haiti: "ht",
-    Uzbekistan: "uz",
-    Algeria: "dz",
-    "Cabo Verde": "cv",
-    "Congo DR": "cd",
-  };
 
 
   export default function TeamCard({ team }) {
+
+    
     return (
       <div
         className="
@@ -91,7 +42,7 @@ export const flags = {
           <div
             className="
               w-28
-              h-20
+              h-16
               overflow-hidden
               rounded-2xl
               bg-white
@@ -102,8 +53,8 @@ export const flags = {
             "
           >
             <img
-              src={`https://flagcdn.io/${flags[team.name]}.svg`}
-              alt={team.name}
+              src={team.logo}
+              alt={team.country}
               className="
                 w-full
                 h-full
@@ -124,7 +75,7 @@ export const flags = {
               text-text
             "
           >
-            {team.name}
+            {team.country}
           </h3>
   
           {/* Código FIFA */}

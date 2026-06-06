@@ -2,15 +2,13 @@ import { useMemo, useState } from "react";
 
 import Header from "../components/Header";
 import MatchCard from "../components/MatchCard";
-import { fixtures } from "../data/MockData";
+import { useAppContext } from "../context/AppContext";
 
 /* -----------------------------
    Helpers
 ----------------------------- */
 
-const todayStr = new Date()
-  .toISOString()
-  .split("T")[0];
+const todayStr = new Date().toLocaleDateString("sv-SE");
 
 const getMonthDays = (year, month) => {
   const date = new Date(year, month, 1);
@@ -24,21 +22,20 @@ const getMonthDays = (year, month) => {
   return days;
 };
 
-const formatDate = (date) =>
-  date.toISOString().split("T")[0];
+const formatDate = (date) => date.toLocaleDateString("sv-SE");
 
 /* -----------------------------
    Component
 ----------------------------- */
 
 export default function Fixtures() {
+  const { matches = [] } = useAppContext();
+
   const today = new Date();
 
-  const [currentMonth, setCurrentMonth] =
-    useState(today.getMonth());
+  const [currentMonth, setCurrentMonth] = useState(today.getMonth());
 
-  const [selectedDate, setSelectedDate] =
-    useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const months = [
     { label: "Junio 2026", value: 5 },
@@ -49,9 +46,10 @@ export default function Fixtures() {
      Obtener partidos por fecha
   ----------------------------- */
   const getMatchesByDate = (dateStr) =>
-    fixtures.filter(
-      (m) => m.date === dateStr
-    );
+    matches.filter((match) => {
+      const matchDate = match.fixture.date.split("T")[0];
+      return matchDate === dateStr;
+    });
 
   /* -----------------------------
      Mes actual del calendario
@@ -61,20 +59,19 @@ export default function Fixtures() {
   }, [currentMonth]);
 
   /* -----------------------------
-     Fecha activa (hoy por defecto)
+     Fecha activa
   ----------------------------- */
-  const activeDate =
-    selectedDate || todayStr;
+  const activeDate = selectedDate || todayStr;
 
-  const filteredFixtures =
-    getMatchesByDate(activeDate);
+  const filteredFixtures = getMatchesByDate(activeDate).sort(
+    (a, b) =>
+      new Date(a.fixture.date) - new Date(b.fixture.date)
+  );
 
-  const hasMatches =
-    filteredFixtures.length > 0;
+  const hasMatches = filteredFixtures.length > 0;
 
   return (
     <div className="p-4 pb-24">
-      {/* HEADER */}
       <Header
         title="Fixture"
         subtitle="Calendario Mundial 2026"
@@ -90,12 +87,7 @@ export default function Fixtures() {
               setSelectedDate(null);
             }}
             className={`
-              px-3
-              py-1
-              rounded-full
-              text-sm
-              transition
-
+              px-3 py-1 rounded-full text-sm transition
               ${
                 currentMonth === m.value
                   ? "bg-accent text-black"
@@ -111,27 +103,20 @@ export default function Fixtures() {
       {/* CALENDARIO */}
       <div className="grid grid-cols-7 gap-2">
         {days.map((day) => {
-          const dateStr =
-            formatDate(day);
+          const dateStr = formatDate(day);
 
-          const matchesForDay =
-            getMatchesByDate(dateStr);
+          const matchesForDay = getMatchesByDate(dateStr);
 
-          const hasMatches =
-            matchesForDay.length > 0;
+          const hasMatches = matchesForDay.length > 0;
 
-          const isSelected =
-            selectedDate === dateStr;
+          const isSelected = selectedDate === dateStr;
 
-          const isToday =
-            todayStr === dateStr;
+          const isToday = todayStr === dateStr;
 
           return (
             <button
               key={dateStr}
-              onClick={() =>
-                setSelectedDate(dateStr)
-              }
+              onClick={() => setSelectedDate(dateStr)}
               className={`
                 aspect-square
                 rounded-xl
@@ -162,7 +147,6 @@ export default function Fixtures() {
                 {day.getDate()}
               </span>
 
-              {/* indicador de partidos */}
               {hasMatches && (
                 <span className="w-1.5 h-1.5 bg-accent rounded-full mt-1" />
               )}
@@ -174,26 +158,22 @@ export default function Fixtures() {
       {/* RESET */}
       {selectedDate && (
         <button
-          onClick={() =>
-            setSelectedDate(null)
-          }
+          onClick={() => setSelectedDate(null)}
           className="mt-4 text-sm text-accent underline"
         >
           Ver partidos de hoy
         </button>
       )}
 
-      {/* MATCHES */}
+      {/* PARTIDOS */}
       <div className="mt-6 space-y-3">
         {hasMatches ? (
-          filteredFixtures.map(
-            (match, i) => (
-              <MatchCard
-                key={i}
-                {...match}
-              />
-            )
-          )
+          filteredFixtures.map((match) => (
+            <MatchCard
+              key={match.fixture.id}
+              match={match}
+            />
+          ))
         ) : (
           <div className="text-center mt-10">
             <p className="text-text/60">

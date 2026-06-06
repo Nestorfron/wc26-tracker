@@ -1,8 +1,11 @@
 import Header from "../components/Header";
 import MatchCard from "../components/MatchCard";
-import { fixtures } from "../data/MockData";
+import { useAppContext } from "../context/AppContext";
 
 export default function Home() {
+  const { matches = [] } = useAppContext();
+
+
   return (
     <div className="p-4 pb-24">
       <Header title="WC26 Tracker" />
@@ -11,11 +14,11 @@ export default function Home() {
       </h2>
 
       <div className="space-y-3">
-        {fixtures.slice(0, 5).map((match) => (
+        {matches.slice(0, 5).map((match, index) => (
           <MatchCard
-            key={match.id}
-            {...match}
-          />
+              key={index + 1}
+              match={match}
+            />
         ))}
       </div>
     </div>
