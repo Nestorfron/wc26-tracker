@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-
 import { CalendarX2 } from "lucide-react";
 
 import Header from "../components/Header";
@@ -7,37 +6,43 @@ import MatchCard from "../components/MatchCard";
 import Loading from "../components/Loading";
 import { useAppContext } from "../context/AppContext";
 
+import { knockoutMatches } from "../data/mockKnockout";
+
 /* -----------------------------
-   Helpers
+   Helpers UTC SAFE
 ----------------------------- */
+const todayStr = new Date().toISOString().split("T")[0];
 
-const todayStr = new Date().toLocaleDateString("sv-SE");
+const toDateKey = (date) =>
+  new Date(date).toISOString().split("T")[0];
 
+
+
+/* -----------------------------
+   Calendario
+----------------------------- */
 const getMonthDays = (year, month) => {
-  const date = new Date(year, month, 1);
+  const date = new Date(Date.UTC(year, month, 1));
   const days = [];
 
-  while (date.getMonth() === month) {
+  while (date.getUTCMonth() === month) {
     days.push(new Date(date));
-    date.setDate(date.getDate() + 1);
+    date.setUTCDate(date.getUTCDate() + 1);
   }
 
   return days;
 };
 
-const formatDate = (date) => date.toLocaleDateString("sv-SE");
-
 /* -----------------------------
    Component
 ----------------------------- */
-
 export default function Fixtures() {
   const { matches = [], loading } = useAppContext();
 
+  const allMatches = [...matches, ...knockoutMatches];
+
   const today = new Date();
-
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
-
   const [selectedDate, setSelectedDate] = useState(null);
 
   const months = [
@@ -46,24 +51,20 @@ export default function Fixtures() {
   ];
 
   /* -----------------------------
-     Obtener partidos por fecha
+     Filtrar partidos
   ----------------------------- */
   const getMatchesByDate = (dateStr) =>
-    matches.filter((match) => {
-      const matchDate = match.fixture.date.split("T")[0];
-      return matchDate === dateStr;
-    });
+    allMatches.filter(
+      (match) => toDateKey(match.fixture.date) === dateStr
+    );
 
   /* -----------------------------
-     Mes actual del calendario
+     Calendario mes
   ----------------------------- */
   const days = useMemo(() => {
     return getMonthDays(2026, currentMonth);
   }, [currentMonth]);
 
-  /* -----------------------------
-     Fecha activa
-  ----------------------------- */
   const activeDate = selectedDate || todayStr;
 
   const filteredFixtures = getMatchesByDate(activeDate).sort(
@@ -78,7 +79,7 @@ export default function Fixtures() {
     <div className="p-4 pb-24">
       <Header title="Fixture" subtitle="Calendario Mundial 2026" />
 
-      {/* SELECTOR DE MES */}
+      {/* MES */}
       <div className="flex gap-2 mt-4 mb-4">
         {months.map((m) => (
           <button
@@ -87,14 +88,11 @@ export default function Fixtures() {
               setCurrentMonth(m.value);
               setSelectedDate(null);
             }}
-            className={`
-              px-3 py-1 rounded-full text-sm transition
-              ${
-                currentMonth === m.value
-                  ? "bg-accent text-black"
-                  : "bg-card text-text"
-              }
-            `}
+            className={`px-3 py-1 rounded-full text-sm transition ${
+              currentMonth === m.value
+                ? "bg-accent text-black"
+                : "bg-card text-text"
+            }`}
           >
             {m.label}
           </button>
@@ -104,43 +102,27 @@ export default function Fixtures() {
       {/* CALENDARIO */}
       <div className="grid grid-cols-7 gap-2">
         {days.map((day) => {
-          const dateStr = formatDate(day);
+          const dateStr = day.toISOString().split("T")[0];
 
           const matchesForDay = getMatchesByDate(dateStr);
 
           const hasMatches = matchesForDay.length > 0;
-
           const isSelected = selectedDate === dateStr;
-
           const isToday = todayStr === dateStr;
 
           return (
             <button
               key={dateStr}
               onClick={() => setSelectedDate(dateStr)}
-              className={`
-                aspect-square
-                rounded-xl
-                flex
-                flex-col
-                items-center
-                justify-center
-                text-xs
-                transition
-                relative
-
-                ${
-                  isSelected
-                    ? "bg-accent text-black"
-                    : hasMatches
-                    ? "bg-card border border-accent/40"
-                    : "bg-card opacity-30"
-                }
-
-                ${isToday && !isSelected ? "ring-2 ring-accent" : ""}
-              `}
+              className={`aspect-square rounded-xl flex flex-col items-center justify-center text-xs transition relative ${
+                isSelected
+                  ? "bg-accent text-black"
+                  : hasMatches
+                  ? "bg-card border border-accent/40"
+                  : "bg-card opacity-30"
+              } ${isToday && !isSelected ? "ring-2 ring-accent" : ""}`}
             >
-              <span className="font-medium">{day.getDate()}</span>
+              <span className="font-medium">{day.getUTCDate()}</span>
 
               {hasMatches && (
                 <span className="w-1.5 h-1.5 bg-accent rounded-full mt-1" />
@@ -170,8 +152,9 @@ export default function Fixtures() {
           <div className="flex flex-col items-center justify-center min-h-[320px] text-center">
             <CalendarX2 size={56} className="mb-4 text-zinc-400" />
 
-            <h3 className="text-lg font-semibold">No hay partidos este día</h3>
-
+            <h3 className="text-lg font-semibold">
+              No hay partidos este día
+            </h3>
 
             <p className="mt-1 text-sm text-text/40">
               Selecciona otra fecha en el calendario.

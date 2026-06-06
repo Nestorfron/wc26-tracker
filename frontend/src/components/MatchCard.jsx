@@ -1,4 +1,4 @@
-import { CalendarDays, Clock3, MapPin } from "lucide-react";
+import { CalendarDays, Clock3, Group, MapPin } from "lucide-react";
 
 export default function MatchCard({ match }) {
   
@@ -19,7 +19,18 @@ export default function MatchCard({ match }) {
 
   const stadium = match.fixture?.venue?.name || "Por confirmar";
 
-  const round = match.league?.round || "Fase de grupos";
+  const round = match.league?.round || match.stage || "";
+
+  const stageLabels = {
+    "Group Stage - 3": "Fase de Grupos 3",
+    "Group Stage - 2": "Fase de Grupos 2",
+    "Group Stage - 1": "Fase de Grupos 1",
+    round16: "Octavos de Final",
+    quarterfinal: "Cuartos de Final",
+    semifinal: "Semifinales",
+    third_place: "Tercer Puesto",
+    final: "Final",
+  };
 
   return (
     <div
@@ -53,7 +64,7 @@ export default function MatchCard({ match }) {
             text-blue-500
           "
         >
-          {round}
+          {stageLabels[round]}
         </span>
       </div>
 

@@ -17,9 +17,6 @@ export default function Home() {
     loading,
   } = useAppContext();
 
-  console.log(teams);
-  console.log(matches);
-
   const [search, setSearch] = useState("");
   const [showResults, setShowResults] = useState(false);
 

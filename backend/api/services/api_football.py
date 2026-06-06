@@ -29,7 +29,9 @@ def get_fixtures():
         "fixtures",
         {
             "league": 1,
-            "season": 2026
+            "season": 2026,
+            "from": "2026-06-01",
+            "to": "2026-07-31"
         }
     )
 
