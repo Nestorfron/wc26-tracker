@@ -30,8 +30,7 @@ CORS(
     resources={
         r"/api/*": {
             "origins": [
-                "https://wc26tracker.vercel.app",
-                "http://localhost:5173"
+                "*"
             ]
         }
     }
