@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
@@ -9,14 +9,16 @@ import MatchCard from "../components/MatchCard";
 export default function TeamPage() {
   const { id } = useParams();
 
-  const { teams, standings, matches, loading } = useAppContext();
+  const { teams, standings, matches, loading, getTeamPlayers, players } =
+    useAppContext();
 
   const team = useMemo(() => {
     return teams.find((t) => t.team.id === Number(id));
   }, [teams, id]);
 
-
-
+  useEffect(() => {
+    getTeamPlayers(id);
+  }, [id]);
 
   const teamStanding = useMemo(() => {
     for (const group of standings) {
@@ -61,9 +63,7 @@ export default function TeamPage() {
   }, [teamMatches]);
 
   if (!team) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   if (loading) return <Loading />;
@@ -74,7 +74,8 @@ export default function TeamPage() {
       <Header />
 
       <div className="rounded-3xl border border-white/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl p-6">
-        <div className="flex items-center gap-4">
+        {/* HEADER EQUIPO */}
+        <div className="flex items-center gap-4 mb-6">
           <img
             src={team.team.logo}
             alt={team.team.name}
@@ -90,6 +91,34 @@ export default function TeamPage() {
               </p>
             )}
           </div>
+        </div>
+
+        {/* PLAYERS GRID */}
+        <div className="h-96 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 overflow-x-hidden">
+          {players?.map((player) => (
+            <div
+              key={player.id}
+              className="flex items-center gap-3 p-3 rounded-xl bg-white/40 dark:bg-zinc-800/40 border border-white/10 hover:scale-[1.02] transition"
+            >
+              {/* FOTO */}
+              <img
+                src={player.photo}
+                alt={player.name}
+                className="w-10 h-10 rounded-full object-cover border border-white/20"
+              />
+
+              {/* INFO */}
+              <div className="flex flex-col">
+                <p className="font-medium text-sm leading-tight">
+                  {player.name}
+                </p>
+
+                <p className="text-xs text-zinc-500">
+                  #{player.number || "-"} • {player.position}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -139,45 +168,41 @@ export default function TeamPage() {
       </section>
 
       {/* Resultados */}
-     
 
-        <section>
-          <h2 className="text-xl font-bold mb-4">Resultados</h2>
+      <section>
+        <h2 className="text-xl font-bold mb-4">Resultados</h2>
 
-          {finishedMatches.length > 0 ? (
-            <div className="grid gap-4">
-              {finishedMatches.map((match) => (
-                <div
-                  key={match.fixture.id}
-                  className="rounded-2xl border border-white/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl p-4"
-                >
-                  <div className="flex justify-between items-center">
-                    <span>{match.teams.home.name}</span>
+        {finishedMatches.length > 0 ? (
+          <div className="grid gap-4">
+            {finishedMatches.map((match) => (
+              <div
+                key={match.fixture.id}
+                className="rounded-2xl border border-white/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl p-4"
+              >
+                <div className="flex justify-between items-center">
+                  <span>{match.teams.home.name}</span>
 
-                    <span className="font-bold text-lg">
-                      {match.goals.home} - {match.goals.away}
-                    </span>
+                  <span className="font-bold text-lg">
+                    {match.goals.home} - {match.goals.away}
+                  </span>
 
-                    <span>{match.teams.away.name}</span>
-                  </div>
+                  <span>{match.teams.away.name}</span>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center min-h-[220px] text-center mb-6">
-              <div className="text-5xl mb-4">🏟️</div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center min-h-[220px] text-center mb-6">
+            <div className="text-5xl mb-4">🏟️</div>
 
-              <h3 className="text-lg font-semibold">Sin resultados todavía</h3>
+            <h3 className="text-lg font-semibold">Sin resultados todavía</h3>
 
-
-              <p className="mt-1 text-sm text-text/40">
-                Los resultados aparecerán aquí cuando termine su primer
-                encuentro.
-              </p>
-            </div>
-          )}
-        </section>
-      
+            <p className="mt-1 text-sm text-text/40">
+              Los resultados aparecerán aquí cuando termine su primer encuentro.
+            </p>
+          </div>
+        )}
+      </section>
     </div>
   );
 }

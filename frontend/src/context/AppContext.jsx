@@ -9,6 +9,7 @@ import { getTeams } from "../services/teams";
 import { getFixtures } from "../services/fixtures";
 import { getLiveMatches } from "../services/live";
 import { getStandings } from "../services/standings";
+import { getPlayers } from "../services/players";
 
 const AppContext = createContext();
 
@@ -16,6 +17,9 @@ export const AppProvider = ({
   children,
 }) => {
   const [teams, setTeams] =
+    useState([]);
+
+  const [players, setPlayers] =
     useState([]);
 
   const [matches, setMatches] =
@@ -86,6 +90,12 @@ export const AppProvider = ({
     loadData();
   }, []);
 
+
+  const getTeamPlayers = async (teamId) => {
+    const data = await getPlayers(teamId);
+    setPlayers(data.players);
+  };
+
   const getTeamInfo = (teamId) => {
     const teamStandings = standings.flat().find(
       (team) => team.team.id === teamId
@@ -112,7 +122,9 @@ export const AppProvider = ({
         matches,
         liveMatches,
         standings,
+        players,
         getTeamInfo,
+        getTeamPlayers,
 
         loading,
         error,

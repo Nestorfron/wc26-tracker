@@ -64,3 +64,12 @@ def get_teams():
             "season": 2026
         }
     )
+
+def get_players(team_id):
+    
+    return request_api(
+        "players/squads",
+        {
+            "team": team_id,
+        }
+    )
