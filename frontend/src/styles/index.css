@@ -19,7 +19,7 @@ body {
   --text: #1e1e1e;
 
   --accent: #00b41e;
-  --secondary: #3f51b5;
+  --secondary: #4cff6a;
 }
 
 .dark {
@@ -28,7 +28,7 @@ body {
   --text: #f3f4f6;
 
   --accent: #ffeb3b;
-  --secondary: #82b1ff;
+  --secondary: #002a6d;
 }
 
 .glass-nav {
