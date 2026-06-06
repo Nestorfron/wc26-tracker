@@ -1,9 +1,13 @@
 import Header from "../components/Header";
 import StandingTable from "../components/StandingTable";
+import Loading from "../components/Loading";
 import { useAppContext } from "../context/AppContext";
 
+
 export default function Standings() {
-  const { standings } = useAppContext();
+  const { standings, loading } = useAppContext();
+
+  if (loading) return <Loading />;
 
 
   return (

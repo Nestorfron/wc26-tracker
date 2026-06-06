@@ -5,7 +5,11 @@
 body {
   font-family: 'Inter', sans-serif;
   padding: 10px;
+  margin: 0;
+  padding: 0;
+  height: full;
   background-color: var(--bg);
+
 }
 
 

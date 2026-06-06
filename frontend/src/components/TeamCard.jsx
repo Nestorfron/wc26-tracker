@@ -1,6 +1,12 @@
+import { useNavigate } from "react-router-dom";
 
 
   export default function TeamCard({ team }) {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+      navigate(`/team/${team.id}`);
+    };
 
     
     return (
@@ -19,6 +25,7 @@
           hover:-translate-y-1
           hover:shadow-xl
         "
+        onClick={handleClick}
       >
         {/* Glow decorativo */}
         <div

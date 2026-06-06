@@ -1,9 +1,12 @@
 import Header from "../components/Header";
 import TeamCard from "../components/TeamCard";
+import Loading from "../components/Loading";
 import { useAppContext } from "../context/AppContext";
 
 export default function Teams() {
-    const { teams } = useAppContext();
+    const { teams, loading } = useAppContext();
+
+    if (loading) return <Loading />;
 
 
   return (

@@ -5,7 +5,6 @@ from flask_limiter import Limiter # type: ignore
 from flask_limiter.util import get_remote_address # type: ignore
 import os
 
-# Blueprints
 from api.routes.fixtures import fixtures_bp
 from api.routes.live import live_bp
 from api.routes.standings import standings_bp
@@ -17,14 +16,13 @@ app = Flask(__name__)
 
 app.config["JSON_SORT_KEYS"] = False
 
-# Rate Limiter
+
 limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["20 per minute"]
 )
 limiter.init_app(app)
 
-# CORS
 CORS(
     app,
     resources={

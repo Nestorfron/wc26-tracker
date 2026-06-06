@@ -1,7 +1,10 @@
 import { useMemo, useState } from "react";
 
+import { CalendarX2 } from "lucide-react";
+
 import Header from "../components/Header";
 import MatchCard from "../components/MatchCard";
+import Loading from "../components/Loading";
 import { useAppContext } from "../context/AppContext";
 
 /* -----------------------------
@@ -29,7 +32,7 @@ const formatDate = (date) => date.toLocaleDateString("sv-SE");
 ----------------------------- */
 
 export default function Fixtures() {
-  const { matches = [] } = useAppContext();
+  const { matches = [], loading } = useAppContext();
 
   const today = new Date();
 
@@ -64,18 +67,16 @@ export default function Fixtures() {
   const activeDate = selectedDate || todayStr;
 
   const filteredFixtures = getMatchesByDate(activeDate).sort(
-    (a, b) =>
-      new Date(a.fixture.date) - new Date(b.fixture.date)
+    (a, b) => new Date(a.fixture.date) - new Date(b.fixture.date)
   );
 
   const hasMatches = filteredFixtures.length > 0;
 
+  if (loading) return <Loading />;
+
   return (
     <div className="p-4 pb-24">
-      <Header
-        title="Fixture"
-        subtitle="Calendario Mundial 2026"
-      />
+      <Header title="Fixture" subtitle="Calendario Mundial 2026" />
 
       {/* SELECTOR DE MES */}
       <div className="flex gap-2 mt-4 mb-4">
@@ -136,16 +137,10 @@ export default function Fixtures() {
                     : "bg-card opacity-30"
                 }
 
-                ${
-                  isToday && !isSelected
-                    ? "ring-2 ring-accent"
-                    : ""
-                }
+                ${isToday && !isSelected ? "ring-2 ring-accent" : ""}
               `}
             >
-              <span className="font-medium">
-                {day.getDate()}
-              </span>
+              <span className="font-medium">{day.getDate()}</span>
 
               {hasMatches && (
                 <span className="w-1.5 h-1.5 bg-accent rounded-full mt-1" />
@@ -169,19 +164,17 @@ export default function Fixtures() {
       <div className="mt-6 space-y-3">
         {hasMatches ? (
           filteredFixtures.map((match) => (
-            <MatchCard
-              key={match.fixture.id}
-              match={match}
-            />
+            <MatchCard key={match.fixture.id} match={match} />
           ))
         ) : (
-          <div className="text-center mt-10">
-            <p className="text-text/60">
-              No hay partidos este día
-            </p>
+          <div className="flex flex-col items-center justify-center min-h-[320px] text-center">
+            <CalendarX2 size={56} className="mb-4 text-zinc-400" />
 
-            <p className="text-text/40 text-sm mt-1">
-              Selecciona otra fecha en el calendario
+            <h3 className="text-lg font-semibold">No hay partidos este día</h3>
+
+
+            <p className="mt-1 text-sm text-text/40">
+              Selecciona otra fecha en el calendario.
             </p>
           </div>
         )}

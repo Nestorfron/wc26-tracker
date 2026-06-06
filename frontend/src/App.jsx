@@ -7,6 +7,7 @@ import Fixtures from "./pages/Fixtures";
 import Standings from "./pages/Standings";
 import Teams from "./pages/Teams";
 import Settings from "./pages/Settings";
+import TeamPage from "./pages/TeamPage";
 import BottomNav from "./components/BottomNav";
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           <Route path="/standings" element={<Standings />} />
           <Route path="/teams" element={<Teams />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/team/:id" element={<TeamPage />} />
         </Routes>
         <BottomNav />
 

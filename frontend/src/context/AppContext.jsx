@@ -86,6 +86,23 @@ export const AppProvider = ({
     loadData();
   }, []);
 
+  const getTeamInfo = (teamId) => {
+    const teamStandings = standings.flat().find(
+      (team) => team.team.id === teamId
+    );
+  
+    const nextMatches = fixtures.filter(
+      (match) =>
+        match.teams.home.id === teamId ||
+        match.teams.away.id === teamId
+    );
+  
+    return {
+      teamStandings,
+      nextMatches,
+    };
+  };
+
    
 
   return (
@@ -95,6 +112,7 @@ export const AppProvider = ({
         matches,
         liveMatches,
         standings,
+        getTeamInfo,
 
         loading,
         error,
