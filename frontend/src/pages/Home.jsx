@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import Header from "../components/Header";
 import MatchCard from "../components/MatchCard";
 import Loading from "../components/Loading";
+import PlayoffBracket from "../components/PayoffBracket";
 import { useAppContext } from "../context/AppContext";
 
 export default function Home() {
@@ -113,6 +114,14 @@ export default function Home() {
             "
           />
         </div>
+
+        {/* Sección del Cuadro / Playoff */}
+      <div className="mb-8">
+        <h2 className="font-semibold text-lg mb-4 mt-4 text-zinc-800 dark:text-zinc-200">
+          Fase de Eliminatorias
+        </h2>
+        <PlayoffBracket />
+      </div>
 
         {showResults &&
           search &&

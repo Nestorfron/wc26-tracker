@@ -73,3 +73,13 @@ def get_players(team_id):
             "team": team_id,
         }
     )
+
+def get_top_scorers():
+    
+    return request_api(
+        "players/topscorers",
+        {
+            "league": 1,
+            "season": 2026
+        }
+    )

@@ -4,7 +4,7 @@ export default function Loading() {
       <div className="flex flex-col items-center py-6">
         <div className="text-4xl animate-bounce">⚽</div>
 
-        <p className="mt-2 text-sm text-zinc-500">Cargando Mundial 2026...</p>
+        <p className="mt-2 text-sm text-zinc-500">Cargando datos...</p>
       </div>
 
       {[...Array(5)].map((_, index) => (
