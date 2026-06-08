@@ -10,6 +10,7 @@ from api.routes.live import live_bp
 from api.routes.standings import standings_bp
 from api.routes.teams import teams_bp
 from api.routes.players import players_bp
+from api.routes.top_scorers import top_scorers_bp
 
 load_dotenv()
 
@@ -104,6 +105,7 @@ app.register_blueprint(live_bp, url_prefix="/api")
 app.register_blueprint(standings_bp, url_prefix="/api")
 app.register_blueprint(teams_bp, url_prefix="/api")
 app.register_blueprint(players_bp, url_prefix="/api")
+app.register_blueprint(top_scorers_bp, url_prefix="/api")
 
 
 # -------------------------
