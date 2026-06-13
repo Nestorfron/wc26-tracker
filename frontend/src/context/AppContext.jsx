@@ -67,7 +67,7 @@ export const AppProvider = ({
         );
 
         setLiveMatches(
-          liveData?.response || []
+          liveData || []
         );
 
         setStandings(

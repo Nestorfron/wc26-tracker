@@ -3,6 +3,7 @@ import { useMemo, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
+import { User } from "lucide-react"; 
 
 import MatchCard from "../components/MatchCard";
 
@@ -101,11 +102,7 @@ export default function TeamPage() {
               className="flex items-center gap-3 p-3 rounded-xl bg-white/40 dark:bg-zinc-800/40 border border-white/10 hover:scale-[1.02] transition"
             >
               {/* FOTO */}
-              <img
-                src={player.photo}
-                alt={player.name}
-                className="w-10 h-10 rounded-full object-cover border border-white/20"
-              />
+              <User />
 
               {/* INFO */}
               <div className="flex flex-col">

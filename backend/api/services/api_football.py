@@ -40,7 +40,9 @@ def get_live_matches():
     return request_api(
         "fixtures",
         {
-            "live": "all"
+            "live": "all",
+            "league": 1,
+            "season": 2026
         }
     )
 

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 
+
   export default function TeamCard({ team }) {
     const navigate = useNavigate();
 
