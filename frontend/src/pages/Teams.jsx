@@ -1,10 +1,13 @@
 import Header from "../components/Header";
 import TeamCard from "../components/TeamCard";
 import Loading from "../components/Loading";
+import ErrorState from "../components/onRetry";
 import { useAppContext } from "../context/AppContext";
 
 export default function Teams() {
-    const { teams, loading } = useAppContext();
+    const { teams, loading, error, loadData } = useAppContext();
+
+    if (error) return <ErrorState onRetry={loadData} />;
 
     if (loading) return <Loading />;
 

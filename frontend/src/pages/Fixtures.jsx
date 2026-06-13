@@ -4,6 +4,7 @@ import { CalendarX2 } from "lucide-react";
 import Header from "../components/Header";
 import MatchCard from "../components/MatchCard";
 import Loading from "../components/Loading";
+import ErrorState from "../components/onRetry";
 import { useAppContext } from "../context/AppContext";
 
 import { knockoutMatches } from "../data/mockKnockout";
@@ -43,7 +44,7 @@ const getMonthDays = (year, month) => {
    Component
 ----------------------------- */
 export default function Fixtures() {
-  const { matches = [], loading } = useAppContext();
+  const { matches = [], loading, error, loadData } = useAppContext();
 
   const allMatches = [...matches, ...knockoutMatches];
 
@@ -78,6 +79,8 @@ export default function Fixtures() {
   );
 
   const hasMatches = filteredFixtures.length > 0;
+
+  if (error) return <ErrorState onRetry={loadData} />;
 
   if (loading) return <Loading />;
 

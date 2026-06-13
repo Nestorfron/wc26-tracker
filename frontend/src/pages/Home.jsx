@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import Header from "../components/Header";
 import MatchCard from "../components/MatchCard";
 import Loading from "../components/Loading";
+import ErrorState from "../components/onRetry";
 import { useAppContext } from "../context/AppContext";
 
 
@@ -17,6 +18,8 @@ export default function Home() {
     teams = [],
     liveMatches = [],
     loading,
+    error,
+    loadData,
   } = useAppContext();
 
   const [search, setSearch] = useState("");
@@ -59,6 +62,8 @@ export default function Home() {
 
     navigate(`/team/${team.team.id}`);
   };
+
+  if (error) return <ErrorState onRetry={loadData} />;
 
   if (loading) return <Loading />;
 

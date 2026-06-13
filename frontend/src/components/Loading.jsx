@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="space-y-6">
+    <div className="h-screen space-y-6">
       <div className="flex flex-col items-center py-6">
         <div className="text-4xl animate-bounce">⚽</div>
 

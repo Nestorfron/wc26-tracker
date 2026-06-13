@@ -1,11 +1,14 @@
 import Header from "../components/Header";
 import StandingTable from "../components/StandingTable";
 import Loading from "../components/Loading";
+import ErrorState from "../components/onRetry";
 import { useAppContext } from "../context/AppContext";
 
 
 export default function Standings() {
-  const { standings, loading } = useAppContext();
+  const { standings, loading, error, loadData } = useAppContext();
+
+  if (error) return <ErrorState onRetry={loadData} />;
 
   if (loading) return <Loading />;
 

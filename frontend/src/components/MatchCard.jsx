@@ -1,7 +1,6 @@
 import { CalendarDays, Clock3, Group, MapPin } from "lucide-react";
 
-export default function MatchCard({ match, finished } ) {
-
+export default function MatchCard({ match, finished }) {
   const homeTeam = match?.teams?.home;
   const awayTeam = match?.teams?.away;
 
@@ -94,23 +93,14 @@ export default function MatchCard({ match, finished } ) {
           >
             {homeTeam.name}
           </span>
-          <span
-            className="
-              mt-3
-              text-lg
-              font-semibold
-              text-center
-              leading-tight
-            "
-          >
-            {match.goals.home}
-          </span>
         </div>
 
         {/* VS */}
-        <div className="flex flex-col items-center">
-          <div
-            className="
+        <div className="items-center">
+          <div className="flex flex-row justify-around text-3xl font-bold">
+            <div className="flex justify-center m-auto me-4">{match.goals.home}</div>
+            <div
+              className="
               w-14 h-14
               rounded-full
               bg-gradient-to-br
@@ -120,9 +110,13 @@ export default function MatchCard({ match, finished } ) {
               text-white
               font-bold
               shadow-lg
+              px-2
+              m-2
             "
-          >
-            VS
+            >
+              VS
+            </div>
+            <div className="flex justify-center m-auto ms-4">{match.goals.away}</div>
           </div>
         </div>
 
@@ -148,45 +142,34 @@ export default function MatchCard({ match, finished } ) {
           >
             {awayTeam.name}
           </span>
-          <span
-            className="
-              mt-3
-              text-lg
-              font-semibold
-              text-center
-              leading-tight
-            "
-          >
-            {match.goals.away}
-          </span>
-
         </div>
       </div>
 
       {/* Footer */}
-      {!finished && <div
-        className="
+      {!finished && (
+        <div
+          className="
           mt-6
           pt-4
           border-t
           border-white/10
         "
-      >
-        <div className="flex justify-center gap-4 text-sm">
-          <div className="flex items-center gap-1">
-            <CalendarDays size={14} />
-            <span>{date}</span>
+        >
+          <div className="flex justify-center gap-4 text-sm">
+            <div className="flex items-center gap-1">
+              <CalendarDays size={14} />
+              <span>{date}</span>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <Clock3 size={14} />
+              <span>{time}</span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-1">
-            <Clock3 size={14} />
-            <span>{time}</span>
-          </div>
-        </div>
-
-        <div className="flex justify-center mt-4">
-          <div
-            className="
+          <div className="flex justify-center mt-4">
+            <div
+              className="
               flex items-center gap-2
               px-3 py-2
               rounded-full
@@ -194,13 +177,13 @@ export default function MatchCard({ match, finished } ) {
               dark:bg-white/5
               text-xs
             "
-          >
-            <MapPin size={14} />
-            <span>{stadium}</span>
+            >
+              <MapPin size={14} />
+              <span>{stadium}</span>
+            </div>
           </div>
         </div>
-      </div> }
-      
+      )}
     </div>
   );
 }

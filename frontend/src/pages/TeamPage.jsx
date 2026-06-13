@@ -3,6 +3,7 @@ import { useMemo, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import Header from "../components/Header";
 import Loading from "../components/Loading";
+import ErrorState from "../components/onRetry";
 import { User } from "lucide-react"; 
 
 import MatchCard from "../components/MatchCard";
@@ -10,7 +11,7 @@ import MatchCard from "../components/MatchCard";
 export default function TeamPage() {
   const { id } = useParams();
 
-  const { teams, standings, matches, loading, getTeamPlayers, players } =
+  const { teams, standings, matches, loading, getTeamPlayers, players, error, loadData } = useAppContext();
     useAppContext();
 
   const team = useMemo(() => {
@@ -62,6 +63,8 @@ export default function TeamPage() {
         match.fixture.status.short === "PEN"
     );
   }, [teamMatches]);
+
+  if (error) return <ErrorState onRetry={loadData} />;
 
   if (!team) {
     return <Loading />;
