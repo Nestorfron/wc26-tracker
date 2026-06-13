@@ -74,7 +74,7 @@ export default function TeamPage() {
       {/* Header */}
       <Header />
 
-      <div className="rounded-3xl border border-white/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl p-6">
+      <div className="rounded-3xl border border-white/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl p-6 ">
         {/* HEADER EQUIPO */}
         <div className="flex items-center gap-4 mb-6">
           <img
@@ -166,27 +166,14 @@ export default function TeamPage() {
 
       {/* Resultados */}
 
-      <section>
+      <section >
         <h2 className="text-xl font-bold mb-4">Resultados</h2>
 
         {finishedMatches.length > 0 ? (
-          <div className="grid gap-4">
-            {finishedMatches.map((match) => (
-              <div
-                key={match.fixture.id}
-                className="rounded-2xl border border-white/10 bg-white/60 dark:bg-zinc-900/60 backdrop-blur-xl p-4"
-              >
-                <div className="flex justify-between items-center">
-                  <span>{match.teams.home.name}</span>
-
-                  <span className="font-bold text-lg">
-                    {match.goals.home} - {match.goals.away}
-                  </span>
-
-                  <span>{match.teams.away.name}</span>
-                </div>
-              </div>
-            ))}
+          <div className="grid gap-4 mb-20">
+            {finishedMatches.map((match, index) => (
+            <MatchCard key={index + 1} match={match} finished="true" />
+          ))}
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center min-h-[220px] text-center mb-6">

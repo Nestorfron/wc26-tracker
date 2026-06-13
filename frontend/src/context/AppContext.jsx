@@ -63,7 +63,7 @@ export const AppProvider = ({
 
         setMatches(
           fixturesData?.response ||
-            []
+          []
         );
 
         setLiveMatches(
@@ -73,7 +73,7 @@ export const AppProvider = ({
         setStandings(
           standingsData?.response?.[0]
             ?.league?.standings ||
-            []
+          []
         );
       } catch (err) {
         console.error(
@@ -90,6 +90,14 @@ export const AppProvider = ({
     loadData();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const data = await getLiveMatches();
+      setLiveMatches(data || []);
+    }, liveMatches.length > 0 ? 15000 : 60000);
+
+    return () => clearInterval(interval);
+  }, [liveMatches.length]);
 
   const getTeamPlayers = async (teamId) => {
     const data = await getPlayers(teamId);
@@ -100,20 +108,22 @@ export const AppProvider = ({
     const teamStandings = standings.flat().find(
       (team) => team.team.id === teamId
     );
-  
+
     const nextMatches = fixtures.filter(
       (match) =>
         match.teams.home.id === teamId ||
         match.teams.away.id === teamId
     );
-  
+
     return {
       teamStandings,
       nextMatches,
     };
   };
 
-   
+
+
+
 
   return (
     <AppContext.Provider

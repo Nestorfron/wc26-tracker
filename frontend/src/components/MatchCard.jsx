@@ -1,7 +1,7 @@
 import { CalendarDays, Clock3, Group, MapPin } from "lucide-react";
 
-export default function MatchCard({ match }) {
-  
+export default function MatchCard({ match, finished } ) {
+
   const homeTeam = match?.teams?.home;
   const awayTeam = match?.teams?.away;
 
@@ -15,6 +15,8 @@ export default function MatchCard({ match }) {
   const time = dateObj.toLocaleTimeString("es-UY", {
     hour: "2-digit",
     minute: "2-digit",
+    hour12: false,
+    timeZone: "America/Montevideo",
   });
 
   const stadium = match.fixture?.venue?.name || "Por confirmar";
@@ -69,7 +71,7 @@ export default function MatchCard({ match }) {
       </div>
 
       {/* Equipos */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-4">
         {/* Local */}
         <div className="flex flex-col items-center w-28">
           <img
@@ -91,6 +93,17 @@ export default function MatchCard({ match }) {
             "
           >
             {homeTeam.name}
+          </span>
+          <span
+            className="
+              mt-3
+              text-lg
+              font-semibold
+              text-center
+              leading-tight
+            "
+          >
+            {match.goals.home}
           </span>
         </div>
 
@@ -135,11 +148,23 @@ export default function MatchCard({ match }) {
           >
             {awayTeam.name}
           </span>
+          <span
+            className="
+              mt-3
+              text-lg
+              font-semibold
+              text-center
+              leading-tight
+            "
+          >
+            {match.goals.away}
+          </span>
+
         </div>
       </div>
 
       {/* Footer */}
-      <div
+      {!finished && <div
         className="
           mt-6
           pt-4
@@ -174,7 +199,8 @@ export default function MatchCard({ match }) {
             <span>{stadium}</span>
           </div>
         </div>
-      </div>
+      </div> }
+      
     </div>
   );
 }
