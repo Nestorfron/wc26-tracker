@@ -63,7 +63,7 @@ export default function Home() {
   if (loading) return <Loading />;
 
   return (
-    <div className="p-4 pb-24">
+    <div className="p-4 pb-24 max-w-[800px] mx-auto">
       <Header title="WC26 Tracker" />
 
       {/* Search Team */}
@@ -151,7 +151,9 @@ export default function Home() {
                   </div>
         
                   <div className="text-xs text-zinc-500 mt-1">
-                    {match.fixture.status.long}
+                    {match.fixture.status.long === "First Half" ? "Primer Tiempo" : ""}
+                    {match.fixture.status.long === "Half Time" ? "Descanso" : ""}
+                    {match.fixture.status.long === "Second Half" ? "Segundo Tiempo" : ""}
                   </div>
                 </div>
         

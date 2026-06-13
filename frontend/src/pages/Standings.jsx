@@ -11,7 +11,7 @@ export default function Standings() {
 
 
   return (
-    <div className="p-4 pb-24">
+    <div className="p-4 pb-24 max-w-[800px] mx-auto">
       <Header title="Posiciones" subtitle="Fase de grupos" />
 
       {standings.map((groupTeams, index) => (

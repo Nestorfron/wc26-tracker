@@ -82,7 +82,7 @@ export default function Fixtures() {
   if (loading) return <Loading />;
 
   return (
-    <div className="p-4 pb-24">
+    <div className="p-4 pb-24 max-w-[800px] mx-auto">
       <Header title="Fixture" subtitle="Calendario Mundial 2026" />
 
       {/* MES */}

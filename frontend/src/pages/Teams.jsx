@@ -10,7 +10,7 @@ export default function Teams() {
 
 
   return (
-    <div className="p-4 pb-24">
+    <div className="p-4 pb-24 max-w-[800px] mx-auto">
       <Header
         title="Equipos"
         subtitle="Selecciones participantes"
