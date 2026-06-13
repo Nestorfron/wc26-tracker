@@ -14,6 +14,7 @@ export default function StandingTable({ teams }) {
         bg-card
         backdrop-blur-xl
         shadow-glass
+        bg-white/70 dark:bg-zinc-900/70
       "
     >
       <table className="w-full">

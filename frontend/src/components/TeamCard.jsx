@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
           duration-300
           hover:-translate-y-1
           hover:shadow-xl
+          bg-white/60 dark:bg-zinc-900/60
         "
         onClick={handleClick}
       >

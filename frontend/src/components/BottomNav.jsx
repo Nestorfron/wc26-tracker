@@ -43,27 +43,14 @@ export default function BottomNav() {
     >
       <nav
         className="
-        flex
-        items-center
-        gap-2
-
-        p-2
-
-        rounded-full
-
-        border
-        border-white/20
-
-        bg-white/60
-        dark:bg-zinc-950/60
-
-        backdrop-blur-[40px]
-
-        shadow-[0_10px_40px_rgba(0,0,0,0.18)]
-
-        supports-[backdrop-filter]:bg-white/55
-        dark:supports-[backdrop-filter]:bg-zinc-950/55
-        "
+         flex items-center justify-between
+          px-4 py-3
+          rounded-3xl
+          border border-white/10
+          bg-white/20 dark:bg-zinc-900/20
+          backdrop-blur-2xl
+          shadow-lg
+          shadow-black/5"
       >
         {navItems.map((item) => {
           const Icon = item.icon;

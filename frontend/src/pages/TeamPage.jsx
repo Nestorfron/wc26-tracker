@@ -70,7 +70,7 @@ export default function TeamPage() {
   if (loading) return <Loading />;
 
   return (
-    <div className="container mx-auto px-4 py-6 space-y-8">
+    <div className="container mx-auto px-4 py-6 space-y-8 max-w-[800px] mx-auto">
       {/* Header */}
       <Header />
 
